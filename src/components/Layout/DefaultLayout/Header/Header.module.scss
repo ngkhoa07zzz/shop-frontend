@@ -1,0 +1,13 @@
+.header-content {
+  height: var(--default-layout-header-height);
+  display: flex;
+  justify-content: center;
+  background-color: #eef0f7;
+}
+
+.container {
+  height: 100%;
+  width: var(--default-layout-width);
+  display: flex;
+  justify-content: center;
+}
