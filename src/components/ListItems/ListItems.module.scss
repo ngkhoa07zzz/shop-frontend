@@ -1,0 +1,33 @@
+.sugget-product {
+  display: flex;
+  align-items: center;
+  &:hover {
+    background-color: #eef0f7;
+  }
+}
+
+.image-product {
+  height: 75px;
+  width: 75px;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.name-product {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #000;
+  margin-bottom: 5px;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  color: #f9495f;
+}
