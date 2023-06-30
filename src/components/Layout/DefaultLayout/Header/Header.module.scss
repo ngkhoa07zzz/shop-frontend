@@ -9,5 +9,64 @@
   height: 100%;
   width: var(--default-layout-width);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+}
+
+.search {
+  position: relative;
+  width: 620px;
+  height: var(--search-height);
+  padding-left: 32px;
+  display: flex;
+  border: 1.5px solid #007aff;
+  background-color: #eef0f7;
+  input {
+    flex: 1;
+    height: 100%;
+    color: #757575;
+    caret-color: #333;
+    font-size: 1.4rem;
+
+    background-color: transparent;
+  }
+  &:focus-within {
+    border-color: #005ec4;
+  }
+}
+
+.clear,
+.loading {
+  position: absolute;
+  right: calc(var(--search-button-width) + 16px);
+  top: 50%;
+  transform: translateY(-50%);
+  color: #007aff;
+}
+
+.btn-search {
+  position: relative;
+  width: var(--search-button-width);
+  height: 100%;
+  background-color: transparent;
+  font-size: 1.8rem;
+  color: #007aff;
+  &:hover {
+    cursor: pointer;
+  }
+  &::before {
+    content: '';
+    position: absolute;
+    top: 7px;
+    right: var(--search-button-width);
+    height: calc(var(--search-height) - 14px);
+    width: 1px;
+    background: #005ec4;
+  }
+}
+
+.cart {
 }
