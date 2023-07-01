@@ -1,0 +1,20 @@
+.title {
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product {
+  border: 1px solid #757575;
+  width: calc(var(--default-layout-width) / 4);
+}
+.product img {
+  width: 100%;
+  max-width: 228px;
+}
+.product-info {
+  padding: 10px;
+}

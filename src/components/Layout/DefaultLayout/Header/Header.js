@@ -12,6 +12,7 @@ import styles from './Header.module.scss';
 import images from '../../../../assets/images';
 import { Suggestion } from '../../../Suggestions';
 import ListItems from '../../../ListItems';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 function Header() {
@@ -25,9 +26,11 @@ function Header() {
   return (
     <header className={cx('header-content')}>
       <div className={cx('container')}>
-        <div className={cx('logo')}>
-          <img src={images.logo} alt="TCN logo" />
-        </div>
+        <Link to="/">
+          <div className={cx('logo')}>
+            <img src={images.logo} alt="TCN logo" />
+          </div>
+        </Link>
         <Tippy
           interactive
           visible={searchResults.length > 0}

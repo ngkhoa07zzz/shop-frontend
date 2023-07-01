@@ -3,7 +3,7 @@ import ProductScreen from '../screens/ProductScreen';
 
 const publicRoutes = [
   { path: '/', component: HomeScreen },
-  { path: '/product', component: ProductScreen },
+  { path: '/product/:slug', component: ProductScreen },
 ];
 
 const privateRoutes = [];
