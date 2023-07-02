@@ -1,0 +1,11 @@
+.img-large {
+  max-width: 100%;
+}
+
+.btn-add-to-cart {
+  font-size: 14px;
+  &:hover {
+    background-color: #f9495f;
+    color: #fff;
+  }
+}

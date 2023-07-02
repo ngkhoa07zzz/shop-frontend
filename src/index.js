@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import App from './App';
 import GlobalStyle from './components/GlobalStyle';
+import { HelmetProvider } from 'react-helmet-async';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <GlobalStyle>
-      <App />
-    </GlobalStyle>
+    <HelmetProvider>
+      <GlobalStyle>
+        <App />
+      </GlobalStyle>
+    </HelmetProvider>
   </React.StrictMode>
 );
 
