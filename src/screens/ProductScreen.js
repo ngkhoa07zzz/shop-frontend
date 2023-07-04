@@ -1,12 +1,16 @@
 import axios from 'axios';
 import classNames from 'classnames/bind';
-import React, { useEffect, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer } from 'react';
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 
 import styles from './Product.module.scss';
 import Rating from '../components/Product/Rating';
 import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../components/Loading/LoadingBox';
+import MessageBox from '../components/Loading/MessageBox';
+import { getError } from '../utils/Error';
+import { Store } from '../store/Store';
 
 const cx = classNames.bind(styles);
 
@@ -41,16 +45,33 @@ export default function ProductScreen() {
         const result = await axios.get(`/api/products/slug/${slug}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
-        dispatch({ type: 'FETCH_FAIL', payload: err.message });
+        dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
       }
       // setProducts(result.data);
     };
     fetchData();
   }, [slug]);
+
+  const { state, dispatch: ctxDispatch } = useContext(Store);
+  const { cart } = state;
+  const addToCartHandler = async () => {
+    const existItem = cart.cartItems.find((item) => item._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock < quantity) {
+      window.alert('Mặt hàng này đã hết');
+      return;
+    }
+    ctxDispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...product, quantity },
+    });
+  };
+
   return loading ? (
-    <div>Loading ...</div>
+    <LoadingBox />
   ) : error ? (
-    <div>${error}</div>
+    <MessageBox variant="danger">{error}</MessageBox>
   ) : (
     <Row>
       <Col md={6}>
@@ -106,7 +127,11 @@ export default function ProductScreen() {
               {product.countInStock > 0 && (
                 <ListGroup.Item>
                   <div className="d-grid">
-                    <Button className={cx('btn-add-to-cart')} variant="primary">
+                    <Button
+                      className={cx('btn-add-to-cart')}
+                      onClick={addToCartHandler}
+                      variant="primary"
+                    >
                       Thêm vào giỏ hàng
                     </Button>
                   </div>

@@ -8,6 +8,8 @@ import styles from './Home.module.scss';
 import axios from 'axios';
 import Product from '../components/Product/Product';
 import { Helmet } from 'react-helmet-async';
+import LoadingBox from '../components/Loading/LoadingBox';
+import MessageBox from '../components/Loading/MessageBox';
 
 const cx = classNames.bind(styles);
 const reducer = (state, action) => {
@@ -53,9 +55,9 @@ export default function HomeScreen() {
       <h1 className={cx('title')}>Sản phẩm đang bán</h1>
       <div className={cx('products')}>
         {loading ? (
-          <div>Loading ...</div>
+          <LoadingBox />
         ) : error ? (
-          <div>{error}</div>
+          <MessageBox variant="danger">{error}</MessageBox>
         ) : (
           <Row>
             {products.map((product) => (

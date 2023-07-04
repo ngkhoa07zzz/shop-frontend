@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+  faCartShopping,
   faCircleXmark,
   faMagnifyingGlass,
   faSpinner,
@@ -13,6 +14,9 @@ import images from '../../../../assets/images';
 import { Suggestion } from '../../../Suggestions';
 import ListItems from '../../../ListItems';
 import { Link } from 'react-router-dom';
+import { Badge } from 'react-bootstrap';
+import { Store } from '../../../../store/Store';
+import { Value } from 'sass';
 
 const cx = classNames.bind(styles);
 function Header() {
@@ -23,6 +27,9 @@ function Header() {
       setsearchResults([]);
     }, 3000);
   }, []);
+  const { state } = useContext(Store);
+  const { cart } = state;
+
   return (
     <header className={cx('header-content')}>
       <div className={cx('container')}>
@@ -55,7 +62,24 @@ function Header() {
             </button>
           </div>
         </Tippy>
-        <div className={cx('cart')}></div>
+        <Link to="/cart">
+          <div className={cx('header-cart')}>
+            <button className={cx('btn-cart')}>
+              <FontAwesomeIcon
+                className={cx('cart-icon')}
+                icon={faCartShopping}
+              />
+              {cart.cartItems.length > 0 && (
+                <Badge pill bg="danger">
+                  {cart.cartItems.reduce(
+                    (acc, value) => acc + value.quantity,
+                    0
+                  )}
+                </Badge>
+              )}
+            </button>
+          </div>
+        </Link>
         {/*Content */}
       </div>
     </header>
