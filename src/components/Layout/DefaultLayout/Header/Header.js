@@ -16,7 +16,7 @@ import ListItems from '../../../ListItems';
 import { Link } from 'react-router-dom';
 import { Badge } from 'react-bootstrap';
 import { Store } from '../../../../store/Store';
-import { Value } from 'sass';
+// import { Value } from 'sass';
 
 const cx = classNames.bind(styles);
 function Header() {
