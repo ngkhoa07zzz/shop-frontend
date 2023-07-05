@@ -2,7 +2,7 @@ import axios from 'axios';
 import classNames from 'classnames/bind';
 import React, { useContext, useEffect, useReducer } from 'react';
 import { Badge, Button, Card, Col, ListGroup, Row } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import styles from './Product.module.scss';
 import Rating from '../components/Product/Rating';
@@ -30,6 +30,7 @@ const reducer = (state, action) => {
 };
 
 export default function ProductScreen() {
+  const navigate = useNavigate();
   const params = useParams();
   const { slug } = params;
   const [{ loading, error, product }, dispatch] = useReducer(reducer, {
@@ -66,6 +67,7 @@ export default function ProductScreen() {
       type: 'CART_ADD_ITEM',
       payload: { ...product, quantity },
     });
+    navigate('/cart');
   };
 
   return loading ? (
