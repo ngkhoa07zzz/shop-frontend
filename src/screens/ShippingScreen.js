@@ -42,7 +42,7 @@ export default function ShippingScreen() {
     });
     localStorage.setItem(
       'shippingAddress',
-      JSON.stringify(fullName, phoneNumber, address, note)
+      JSON.stringify({ fullName, phoneNumber, address, note })
     );
     navigate('/payment');
   };

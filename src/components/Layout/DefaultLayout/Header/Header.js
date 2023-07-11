@@ -37,6 +37,7 @@ function Header() {
     localStorage.removeItem('userInfo');
     localStorage.removeItem('shippingAddress');
     localStorage.removeItem('cartItems');
+    localStorage.removeItem('paymentMethod');
   };
   console.log(userInfo);
   console.log(cart);
