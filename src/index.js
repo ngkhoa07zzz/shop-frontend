@@ -1,10 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { HelmetProvider } from 'react-helmet-async';
+import { PayPalScriptProvider } from '@paypal/react-paypal-js';
 
 import App from './App';
 import GlobalStyle from './components/GlobalStyle';
-import { HelmetProvider } from 'react-helmet-async';
 import { StoreProvider } from './store/Store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -12,9 +13,11 @@ root.render(
   <React.StrictMode>
     <StoreProvider>
       <HelmetProvider>
-        <GlobalStyle>
-          <App />
-        </GlobalStyle>
+        <PayPalScriptProvider deferLoading={true}>
+          <GlobalStyle>
+            <App />
+          </GlobalStyle>
+        </PayPalScriptProvider>
       </HelmetProvider>
     </StoreProvider>
   </React.StrictMode>
