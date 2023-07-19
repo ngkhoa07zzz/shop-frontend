@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Helmet } from 'react-helmet-async';
+import { useNavigate } from 'react-router-dom';
 import { Button, Form } from 'react-bootstrap';
 import styles from './Shipping.module.scss';
-import { useNavigate } from 'react-router-dom';
 import { Store } from '../store/Store';
 import CheckoutSteps from '../components/Checkout/CheckoutSteps.js';
 

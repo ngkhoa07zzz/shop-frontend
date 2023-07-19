@@ -1,13 +1,13 @@
 import React, { useEffect, useReducer } from 'react';
 // import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { Helmet } from 'react-helmet-async';
 import logger from 'use-reducer-logger';
 import { Col, Row } from 'react-bootstrap';
 import classNames from 'classnames/bind';
 // import data from './data';
 import styles from './Home.module.scss';
-import axios from 'axios';
 import Product from '../components/Product/Product';
-import { Helmet } from 'react-helmet-async';
 import LoadingBox from '../components/Loading/LoadingBox';
 import MessageBox from '../components/Loading/MessageBox';
 

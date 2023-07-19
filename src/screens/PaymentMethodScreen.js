@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import classNames from 'classnames/bind';
-import styles from './Payment.module.scss';
-import CheckoutSteps from '../components/Checkout/CheckoutSteps';
-import { Helmet } from 'react-helmet-async';
-import { Button, Form } from 'react-bootstrap';
-import { Store } from '../store/Store';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames/bind';
+import { Button, Form } from 'react-bootstrap';
+import { Helmet } from 'react-helmet-async';
+import CheckoutSteps from '../components/Checkout/CheckoutSteps';
+import { Store } from '../store/Store';
+import styles from './Payment.module.scss';
 
 const cx = classNames.bind(styles);
 export default function PaymentMethodScreen() {

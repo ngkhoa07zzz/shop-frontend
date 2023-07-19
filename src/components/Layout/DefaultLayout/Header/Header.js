@@ -15,15 +15,23 @@ import styles from './Header.module.scss';
 import images from '../../../../assets/images';
 import { Suggestion } from '../../../Suggestions';
 import ListItems from '../../../ListItems';
-import { Link } from 'react-router-dom';
-import { Badge, NavDropdown } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { Badge, Button, Form, NavDropdown } from 'react-bootstrap';
 import { Store } from '../../../../store/Store';
 import { LinkContainer } from 'react-router-bootstrap';
 // import { Value } from 'sass';
 
 const cx = classNames.bind(styles);
 function Header() {
+  const navigate = useNavigate();
   const [searchResults, setsearchResults] = useState([]);
+  const [query, setQuery] = useState('');
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    navigate(query ? `/search/?query=${query}` : '/search');
+    e.target.reset();
+  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -38,9 +46,9 @@ function Header() {
     localStorage.removeItem('shippingAddress');
     localStorage.removeItem('cartItems');
     localStorage.removeItem('paymentMethod');
+    window.location.href = '/#signout';
   };
   console.log(userInfo);
-  console.log(cart);
 
   return (
     <>
@@ -65,19 +73,20 @@ function Header() {
               </div>
             )}
           >
-            <div className={cx('search')}>
+            <Form className={cx('search')} onSubmit={submitHandler}>
               <input
                 placeholder="Nhập sản phẩm cần tìm ..."
                 spellCheck={false}
+                onChange={(e) => setQuery(e.target.value)}
               />
               <button className={cx('clear')}>
                 <FontAwesomeIcon icon={faCircleXmark} />
               </button>
               <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />
-              <button className={cx('btn-search')}>
+              <Button className={cx('btn-search')} type="submit">
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
-              </button>
-            </div>
+              </Button>
+            </Form>
           </Tippy>
           <Link to="/cart">
             <div className={cx('header-cart')}>
@@ -97,29 +106,46 @@ function Header() {
               </button>
             </div>
           </Link>
-
-          {userInfo ? (
-            <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-              <LinkContainer to="/profile">
-                <NavDropdown.Item>User Profile</NavDropdown.Item>
-              </LinkContainer>
-              <LinkContainer to="/history">
-                <NavDropdown.Item>Order History</NavDropdown.Item>
-              </LinkContainer>
-              <NavDropdown.Divider />
-              <Link
-                className="dropdown-item"
-                to="#signout"
-                onClick={signoutHandler}
-              >
-                Sign Out
+          <div>
+            {userInfo ? (
+              <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                <LinkContainer to="/profile">
+                  <NavDropdown.Item>User Profile</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/orderhistory">
+                  <NavDropdown.Item>Order History</NavDropdown.Item>
+                </LinkContainer>
+                <NavDropdown.Divider />
+                <Link
+                  className="dropdown-item"
+                  to="#signout"
+                  onClick={signoutHandler}
+                >
+                  Sign Out
+                </Link>
+              </NavDropdown>
+            ) : (
+              <Link className="nav-link" to="/signin">
+                Sign In
               </Link>
-            </NavDropdown>
-          ) : (
-            <Link className="nav-link" to="/signin">
-              Sign In
-            </Link>
-          )}
+            )}
+            {userInfo && userInfo.isAdmin && (
+              <NavDropdown title="Admin" id="admin-nav-dropdown">
+                <LinkContainer to="/admin/dashboard">
+                  <NavDropdown.Item>Dashboard</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/productlist">
+                  <NavDropdown.Item>Products</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/orderlist">
+                  <NavDropdown.Item>Orders</NavDropdown.Item>
+                </LinkContainer>
+                <LinkContainer to="/admin/userlist">
+                  <NavDropdown.Item>Users</NavDropdown.Item>
+                </LinkContainer>
+              </NavDropdown>
+            )}
+          </div>
         </div>
       </header>
     </>
